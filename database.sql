@@ -79,23 +79,25 @@ INSERT INTO products (category_id, name, description, price, image_url) VALUES
 -- Bảng đơn hàng
 CREATE TABLE IF NOT EXISTS orders (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
+    user_id INT NULL, -- Cho phép NULL để giữ lại hóa đơn khi user bị xóa
+    coupon_id INT DEFAULT NULL, -- Thêm liên kết với bảng mã giảm giá
     total_amount DECIMAL(15, 2) NOT NULL,
     payment_method VARCHAR(50) NOT NULL,
     status VARCHAR(50) DEFAULT 'Pending',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL, -- Xóa user -> user_id = NULL
+    FOREIGN KEY (coupon_id) REFERENCES coupons(id) ON DELETE SET NULL -- Xóa mã -> coupon_id = NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Bảng chi tiết đơn hàng
+-- Bảng chi tiết đơn hàng 
 CREATE TABLE IF NOT EXISTS order_items (
     id INT AUTO_INCREMENT PRIMARY KEY,
     order_id INT NOT NULL,
-    product_id INT NOT NULL,
+    product_id INT NULL, -- Cho phép NULL để giữ lại chi tiết hóa đơn khi sản phẩm ngừng kinh doanh
     quantity INT NOT NULL,
     price DECIMAL(15, 2) NOT NULL,
-    FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
-    FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
+    FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE, -- Đơn hàng bị xóa thì chi tiết bị xóa theo (hợp lý)
+    FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE SET NULL -- Xóa sản phẩm -> product_id = NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Bảng liên hệ
