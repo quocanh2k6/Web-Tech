@@ -197,11 +197,6 @@ Database sử dụng **10 bảng** chính:
 
 **5 danh mục sản phẩm mặc định:** Điện thoại & Tablet, Laptop & Máy tính, Tai nghe & Âm thanh, Đồng hồ thông minh, Phụ kiện công nghệ.
 
----
-
-## 📸 Ảnh Chụp Màn Hình
-
-> *Sẽ được cập nhật sau.*
 
 ---
 
@@ -214,5 +209,5 @@ Mọi đóng góp, báo lỗi vui lòng tạo [Issues](https://github.com/quocan
 ---
 
 <p align="center">
-  <b>TechNova Store</b> — Công Nghệ Đỉnh Cao ✦
+  <b>TechNova Store</b> — Công Nghệ Đỉnh Cao 
 </p>
