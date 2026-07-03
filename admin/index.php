@@ -72,8 +72,8 @@ function statusBadge($status) {
 
 <!-- Page Header -->
 <div class="mb-8 animate-fade-in">
-    <h1 class="text-2xl font-display font-bold text-slate-800">Tổng Quan</h1>
-    <p class="text-slate-400 text-sm mt-1">Xin chào, <?= htmlspecialchars($_SESSION['user_name'] ?? 'Admin') ?>. Đây là báo cáo hoạt động hôm nay.</p>
+    <h1 class="text-2xl font-bold text-zinc-800 leading-snug">Tổng Quan</h1>
+    <p class="text-zinc-400 text-sm mt-1 leading-relaxed">Xin chào, <?= htmlspecialchars($_SESSION['user_name'] ?? 'Admin') ?>. Đây là báo cáo hoạt động hôm nay.</p>
 </div>
 
 <!-- Stats Cards -->
@@ -83,16 +83,16 @@ function statusBadge($status) {
     <div class="admin-card p-5 animate-fade-in animate-delay-1">
         <div class="flex items-start justify-between">
             <div>
-                <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Doanh Thu</p>
-                <p class="text-2xl font-bold text-slate-800 mt-2 font-display"><?= formatVND($totalRevenue) ?></p>
+                <p class="text-xs font-medium text-zinc-400 uppercase tracking-wider leading-relaxed">Doanh Thu</p>
+                <p class="text-2xl font-bold text-zinc-800 mt-2"><?= formatVND($totalRevenue) ?></p>
             </div>
-            <div class="stat-icon w-11 h-11 rounded-xl bg-blue-50 flex items-center justify-center">
-                <i class="fas fa-dollar-sign text-blue-500 text-lg"></i>
+            <div class="stat-icon w-11 h-11 rounded-xl bg-brand-gold/10 flex items-center justify-center">
+                <i class="fas fa-dollar-sign text-brand-gold text-lg"></i>
             </div>
         </div>
         <div class="flex items-center gap-1.5 mt-3">
             <span class="text-[11px] font-semibold text-emerald-500"><i class="fas fa-arrow-up text-[9px]"></i> 12.5%</span>
-            <span class="text-[11px] text-slate-400">so với tuần trước</span>
+            <span class="text-[11px] text-zinc-400">so với tuần trước</span>
         </div>
     </div>
 
@@ -100,11 +100,11 @@ function statusBadge($status) {
     <div class="admin-card p-5 animate-fade-in animate-delay-2">
         <div class="flex items-start justify-between">
             <div>
-                <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Đơn Hàng</p>
-                <p class="text-2xl font-bold text-slate-800 mt-2 font-display"><?= number_format($totalOrders) ?></p>
+                <p class="text-xs font-medium text-zinc-400 uppercase tracking-wider leading-relaxed">Đơn Hàng</p>
+                <p class="text-2xl font-bold text-zinc-800 mt-2"><?= number_format($totalOrders) ?></p>
             </div>
-            <div class="stat-icon w-11 h-11 rounded-xl bg-violet-50 flex items-center justify-center">
-                <i class="fas fa-shopping-bag text-violet-500 text-lg"></i>
+            <div class="stat-icon w-11 h-11 rounded-xl bg-amber-50 flex items-center justify-center">
+                <i class="fas fa-shopping-bag text-amber-500 text-lg"></i>
             </div>
         </div>
         <div class="flex items-center gap-1.5 mt-3">
@@ -116,8 +116,8 @@ function statusBadge($status) {
     <div class="admin-card p-5 animate-fade-in animate-delay-3">
         <div class="flex items-start justify-between">
             <div>
-                <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Khách Hàng</p>
-                <p class="text-2xl font-bold text-slate-800 mt-2 font-display"><?= number_format($totalCustomers) ?></p>
+                <p class="text-xs font-medium text-zinc-400 uppercase tracking-wider leading-relaxed">Khách Hàng</p>
+                <p class="text-2xl font-bold text-zinc-800 mt-2"><?= number_format($totalCustomers) ?></p>
             </div>
             <div class="stat-icon w-11 h-11 rounded-xl bg-emerald-50 flex items-center justify-center">
                 <i class="fas fa-users text-emerald-500 text-lg"></i>
@@ -125,7 +125,7 @@ function statusBadge($status) {
         </div>
         <div class="flex items-center gap-1.5 mt-3">
             <span class="text-[11px] font-semibold text-emerald-500"><i class="fas fa-arrow-up text-[9px]"></i> 8.2%</span>
-            <span class="text-[11px] text-slate-400">tháng này</span>
+            <span class="text-[11px] text-zinc-400">tháng này</span>
         </div>
     </div>
 
@@ -133,15 +133,15 @@ function statusBadge($status) {
     <div class="admin-card p-5 animate-fade-in animate-delay-4">
         <div class="flex items-start justify-between">
             <div>
-                <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Sản Phẩm</p>
-                <p class="text-2xl font-bold text-slate-800 mt-2 font-display"><?= number_format($totalProducts) ?></p>
+                <p class="text-xs font-medium text-zinc-400 uppercase tracking-wider leading-relaxed">Sản Phẩm</p>
+                <p class="text-2xl font-bold text-zinc-800 mt-2"><?= number_format($totalProducts) ?></p>
             </div>
-            <div class="stat-icon w-11 h-11 rounded-xl bg-amber-50 flex items-center justify-center">
-                <i class="fas fa-box text-amber-500 text-lg"></i>
+            <div class="stat-icon w-11 h-11 rounded-xl bg-zinc-100 flex items-center justify-center">
+                <i class="fas fa-box text-zinc-500 text-lg"></i>
             </div>
         </div>
         <div class="flex items-center gap-1.5 mt-3">
-            <a href="products.php" class="text-[11px] font-medium text-blue-500 hover:text-blue-600 transition-colors">Quản lý <i class="fas fa-arrow-right text-[9px] ml-0.5"></i></a>
+            <a href="products.php" class="text-[11px] font-medium text-brand-gold hover:text-brand-gold-light transition-colors">Quản lý <i class="fas fa-arrow-right text-[9px] ml-0.5"></i></a>
         </div>
     </div>
 </div>
@@ -153,8 +153,8 @@ function statusBadge($status) {
     <div class="admin-card p-6 xl:col-span-2 animate-fade-in">
         <div class="flex items-center justify-between mb-5">
             <div>
-                <h2 class="text-base font-semibold text-slate-700">Doanh Thu 7 Ngày Gần Nhất</h2>
-                <p class="text-xs text-slate-400 mt-0.5">Biểu đồ theo ngày</p>
+                <h2 class="text-base font-semibold text-zinc-700 leading-snug">Doanh Thu 7 Ngày Gần Nhất</h2>
+                <p class="text-xs text-zinc-400 mt-0.5 leading-relaxed">Biểu đồ theo ngày</p>
             </div>
             <span class="badge badge-info"><i class="fas fa-chart-line text-[10px] mr-1"></i> Tổng quan</span>
         </div>
@@ -167,8 +167,8 @@ function statusBadge($status) {
     <div class="admin-card p-6 animate-fade-in">
         <div class="flex items-center justify-between mb-5">
             <div>
-                <h2 class="text-base font-semibold text-slate-700">Bán Chạy Nhất</h2>
-                <p class="text-xs text-slate-400 mt-0.5">Top sản phẩm</p>
+                <h2 class="text-base font-semibold text-zinc-700 leading-snug">Bán Chạy Nhất</h2>
+                <p class="text-xs text-zinc-400 mt-0.5 leading-relaxed">Top sản phẩm</p>
             </div>
             <span class="badge badge-gray"><i class="fas fa-trophy text-[10px] mr-1"></i> Top 8</span>
         </div>
@@ -182,8 +182,8 @@ function statusBadge($status) {
 <div class="admin-card mb-8 animate-fade-in">
     <div class="flex items-center justify-between p-5 pb-0">
         <div>
-            <h2 class="text-base font-semibold text-slate-700">Đơn Hàng Gần Đây</h2>
-            <p class="text-xs text-slate-400 mt-0.5">6 đơn hàng mới nhất</p>
+            <h2 class="text-base font-semibold text-zinc-700 leading-snug">Đơn Hàng Gần Đây</h2>
+            <p class="text-xs text-zinc-400 mt-0.5 leading-relaxed">6 đơn hàng mới nhất</p>
         </div>
         <a href="orders.php" class="btn-admin btn-ghost text-xs">Xem tất cả <i class="fas fa-arrow-right text-[10px]"></i></a>
     </div>
@@ -202,24 +202,24 @@ function statusBadge($status) {
             </thead>
             <tbody>
                 <?php if (empty($recentOrders)): ?>
-                    <tr><td colspan="7" class="text-center text-slate-400 py-8">Chưa có đơn hàng nào.</td></tr>
+                    <tr><td colspan="7" class="text-center text-zinc-400 py-8">Chưa có đơn hàng nào.</td></tr>
                 <?php else: ?>
                     <?php foreach($recentOrders as $order): ?>
                         <tr>
-                            <td class="font-semibold text-slate-700">#<?= $order['id'] ?></td>
+                            <td class="font-semibold text-zinc-700">#<?= $order['id'] ?></td>
                             <td>
                                 <div class="flex items-center gap-2">
-                                    <div class="w-6 h-6 rounded-full bg-slate-100 flex items-center justify-center text-[10px] font-bold text-slate-500">
+                                    <div class="w-6 h-6 rounded-full bg-zinc-100 flex items-center justify-center text-[10px] font-bold text-zinc-500">
                                         <?= mb_substr($order['full_name'] ?? 'K', 0, 1) ?>
                                     </div>
                                     <?= htmlspecialchars($order['full_name'] ?? 'Khách vãng lai') ?>
                                 </div>
                             </td>
-                            <td class="text-slate-500"><?= htmlspecialchars($order['payment_method']) ?></td>
-                            <td class="font-semibold text-slate-700"><?= formatVND($order['total_amount']) ?></td>
+                            <td class="text-zinc-500"><?= htmlspecialchars($order['payment_method']) ?></td>
+                            <td class="font-semibold text-zinc-700"><?= formatVND($order['total_amount']) ?></td>
                             <td><?= statusBadge($order['status']) ?></td>
-                            <td class="text-slate-400 text-xs"><?= date('d/m/Y H:i', strtotime($order['created_at'])) ?></td>
-                            <td><a href="order_detail.php?id=<?= $order['id'] ?>" class="text-blue-500 hover:text-blue-600 text-xs font-medium">Chi tiết</a></td>
+                            <td class="text-zinc-400 text-xs"><?= date('d/m/Y H:i', strtotime($order['created_at'])) ?></td>
+                            <td><a href="order_detail.php?id=<?= $order['id'] ?>" class="text-brand-gold hover:text-brand-gold-light text-xs font-medium transition-colors">Chi tiết</a></td>
                         </tr>
                     <?php endforeach; ?>
                 <?php endif; ?>
@@ -235,11 +235,11 @@ function statusBadge($status) {
     <div class="admin-card">
         <div class="flex items-center justify-between p-5 pb-0">
             <div>
-                <h2 class="text-base font-semibold text-slate-700">Tin Nhắn Mới</h2>
-                <p class="text-xs text-slate-400 mt-0.5">Liên hệ từ khách hàng</p>
+                <h2 class="text-base font-semibold text-zinc-700 leading-snug">Tin Nhắn Mới</h2>
+                <p class="text-xs text-zinc-400 mt-0.5 leading-relaxed">Liên hệ từ khách hàng</p>
             </div>
-            <div class="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center">
-                <i class="fas fa-envelope text-blue-400 text-sm"></i>
+            <div class="w-8 h-8 rounded-lg bg-brand-gold/10 flex items-center justify-center">
+                <i class="fas fa-envelope text-brand-gold text-sm"></i>
             </div>
         </div>
         <div class="overflow-x-auto p-5">
@@ -254,15 +254,15 @@ function statusBadge($status) {
                 </thead>
                 <tbody>
                     <?php if (empty($contacts)): ?>
-                        <tr><td colspan="4" class="text-center text-slate-400 py-6">Chưa có tin nhắn.</td></tr>
+                        <tr><td colspan="4" class="text-center text-zinc-400 py-6">Chưa có tin nhắn.</td></tr>
                     <?php else: ?>
                         <?php foreach($contacts as $contact): ?>
                             <tr>
-                                <td class="font-medium text-slate-700"><?= htmlspecialchars($contact['name']) ?></td>
-                                <td class="text-slate-500"><?= htmlspecialchars($contact['email']) ?></td>
-                                <td class="text-slate-400 text-xs"><?= date('d/m/Y', strtotime($contact['created_at'])) ?></td>
+                                <td class="font-medium text-zinc-700"><?= htmlspecialchars($contact['name']) ?></td>
+                                <td class="text-zinc-500"><?= htmlspecialchars($contact['email']) ?></td>
+                                <td class="text-zinc-400 text-xs"><?= date('d/m/Y', strtotime($contact['created_at'])) ?></td>
                                 <td>
-                                    <button type="button" class="view-contact-btn text-blue-500 hover:text-blue-600 text-xs font-medium transition-colors" data-contact="<?= htmlspecialchars(json_encode($contact)) ?>">Xem</button>
+                                    <button type="button" class="view-contact-btn text-brand-gold hover:text-brand-gold-light text-xs font-medium transition-colors" data-contact="<?= htmlspecialchars(json_encode($contact)) ?>">Xem</button>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -276,8 +276,8 @@ function statusBadge($status) {
     <div class="admin-card">
         <div class="flex items-center justify-between p-5 pb-0">
             <div>
-                <h2 class="text-base font-semibold text-slate-700">Đăng Ký Bản Tin</h2>
-                <p class="text-xs text-slate-400 mt-0.5">Subscriber mới nhất</p>
+                <h2 class="text-base font-semibold text-zinc-700 leading-snug">Đăng Ký Bản Tin</h2>
+                <p class="text-xs text-zinc-400 mt-0.5 leading-relaxed">Subscriber mới nhất</p>
             </div>
             <a href="newsletter.php" class="btn-admin btn-ghost text-xs">Xem tất cả <i class="fas fa-arrow-right text-[10px]"></i></a>
         </div>
@@ -291,7 +291,7 @@ function statusBadge($status) {
                 </thead>
                 <tbody>
                     <?php if (empty($newsletters)): ?>
-                        <tr><td colspan="2" class="text-center text-slate-400 py-6">Chưa có lượt đăng ký.</td></tr>
+                        <tr><td colspan="2" class="text-center text-zinc-400 py-6">Chưa có lượt đăng ký.</td></tr>
                     <?php else: ?>
                         <?php foreach($newsletters as $news): ?>
                             <tr>
@@ -300,10 +300,10 @@ function statusBadge($status) {
                                         <div class="w-6 h-6 rounded-full bg-emerald-50 flex items-center justify-center">
                                             <i class="fas fa-at text-emerald-400 text-[10px]"></i>
                                         </div>
-                                        <span class="text-slate-600"><?= htmlspecialchars($news['email']) ?></span>
+                                        <span class="text-zinc-600"><?= htmlspecialchars($news['email']) ?></span>
                                     </div>
                                 </td>
-                                <td class="text-slate-400 text-xs"><?= date('d/m/Y H:i', strtotime($news['created_at'])) ?></td>
+                                <td class="text-zinc-400 text-xs"><?= date('d/m/Y H:i', strtotime($news['created_at'])) ?></td>
                             </tr>
                         <?php endforeach; ?>
                     <?php endif; ?>
@@ -314,30 +314,30 @@ function statusBadge($status) {
 </div>
 
 <!-- Contact Modal -->
-<div id="contact-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[100] flex items-center justify-center opacity-0 pointer-events-none transition-all duration-300">
+<div id="contact-modal" class="fixed inset-0 bg-zinc-900/50 backdrop-blur-sm z-[100] flex items-center justify-center opacity-0 pointer-events-none transition-all duration-300">
     <div class="bg-white rounded-2xl shadow-2xl p-7 max-w-lg w-full m-4 transform scale-95 transition-transform duration-300" id="contact-modal-content">
         <div class="flex justify-between items-center mb-6">
-            <h3 class="font-display text-lg font-bold text-slate-800">Chi Tiết Tin Nhắn</h3>
-            <button id="close-modal-btn" class="w-8 h-8 rounded-lg bg-slate-50 hover:bg-slate-100 flex items-center justify-center text-slate-400 hover:text-slate-600 transition-all">
+            <h3 class="text-lg font-bold text-zinc-800 leading-snug">Chi Tiết Tin Nhắn</h3>
+            <button id="close-modal-btn" class="w-8 h-8 rounded-lg bg-zinc-50 hover:bg-zinc-100 flex items-center justify-center text-zinc-400 hover:text-zinc-600 transition-all">
                 <i class="fas fa-times text-sm"></i>
             </button>
         </div>
         <div class="space-y-4">
             <div>
-                <label class="block text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-1">Người gửi</label>
-                <div id="modal-name" class="text-sm text-slate-800 font-medium"></div>
+                <label class="block text-[10px] font-semibold text-zinc-400 uppercase tracking-wider mb-1">Người gửi</label>
+                <div id="modal-name" class="text-sm text-zinc-800 font-medium leading-relaxed"></div>
             </div>
             <div>
-                <label class="block text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-1">Email</label>
-                <div id="modal-email" class="text-sm text-slate-600"></div>
+                <label class="block text-[10px] font-semibold text-zinc-400 uppercase tracking-wider mb-1">Email</label>
+                <div id="modal-email" class="text-sm text-zinc-600 leading-relaxed"></div>
             </div>
             <div>
-                <label class="block text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-1">Ngày gửi</label>
-                <div id="modal-date" class="text-sm text-slate-600"></div>
+                <label class="block text-[10px] font-semibold text-zinc-400 uppercase tracking-wider mb-1">Ngày gửi</label>
+                <div id="modal-date" class="text-sm text-zinc-600 leading-relaxed"></div>
             </div>
-            <div class="pt-3 border-t border-slate-100">
-                <label class="block text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-2">Nội dung</label>
-                <div id="modal-message" class="text-sm text-slate-700 whitespace-pre-wrap bg-slate-50 p-4 rounded-xl border border-slate-100 leading-relaxed"></div>
+            <div class="pt-3 border-t border-zinc-100">
+                <label class="block text-[10px] font-semibold text-zinc-400 uppercase tracking-wider mb-2">Nội dung</label>
+                <div id="modal-message" class="text-sm text-zinc-700 whitespace-pre-wrap bg-zinc-50 p-4 rounded-xl border border-zinc-100 leading-relaxed"></div>
             </div>
         </div>
         <div class="mt-6 flex justify-end">
@@ -349,11 +349,11 @@ function statusBadge($status) {
 <script>
 document.addEventListener('DOMContentLoaded', function() {
 
-    // === REVENUE LINE CHART ===
+    // === REVENUE LINE CHART (Gold branded) ===
     const revCtx = document.getElementById('revenueChart').getContext('2d');
     const gradient = revCtx.createLinearGradient(0, 0, 0, 280);
-    gradient.addColorStop(0, 'rgba(59, 130, 246, 0.15)');
-    gradient.addColorStop(1, 'rgba(59, 130, 246, 0.0)');
+    gradient.addColorStop(0, 'rgba(201, 168, 76, 0.15)');
+    gradient.addColorStop(1, 'rgba(201, 168, 76, 0.0)');
 
     new Chart(revCtx, {
         type: 'line',
@@ -362,14 +362,14 @@ document.addEventListener('DOMContentLoaded', function() {
             datasets: [{
                 label: 'Doanh thu',
                 data: <?= json_encode($revValues) ?>,
-                borderColor: '#3b82f6',
+                borderColor: '#C9A84C',
                 backgroundColor: gradient,
                 borderWidth: 2.5,
                 tension: 0.4,
                 fill: true,
                 pointRadius: 0,
                 pointHoverRadius: 5,
-                pointHoverBackgroundColor: '#3b82f6',
+                pointHoverBackgroundColor: '#C9A84C',
                 pointHoverBorderColor: '#ffffff',
                 pointHoverBorderWidth: 2,
             }]
@@ -382,13 +382,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 x: {
                     grid: { display: false },
                     border: { display: false },
-                    ticks: { font: { size: 11, family: 'Inter' }, color: '#94a3b8' }
+                    ticks: { font: { size: 11, family: 'Be Vietnam Pro, Inter' }, color: '#a1a1aa' }
                 },
                 y: {
-                    grid: { color: '#f1f5f9', drawBorder: false },
+                    grid: { color: '#f4f4f5', drawBorder: false },
                     border: { display: false },
                     ticks: {
-                        font: { size: 11, family: 'Inter' }, color: '#94a3b8',
+                        font: { size: 11, family: 'Be Vietnam Pro, Inter' }, color: '#a1a1aa',
                         callback: v => (v >= 1e6 ? (v/1e6).toFixed(1) + 'M' : v >= 1e3 ? (v/1e3).toFixed(0) + 'K' : v)
                     }
                 }
@@ -396,11 +396,11 @@ document.addEventListener('DOMContentLoaded', function() {
             plugins: {
                 legend: { display: false },
                 tooltip: {
-                    backgroundColor: '#1e293b',
-                    titleFont: { family: 'Inter', size: 12 },
-                    bodyFont: { family: 'Inter', size: 11 },
+                    backgroundColor: '#18181b',
+                    titleFont: { family: 'Be Vietnam Pro, Inter', size: 12 },
+                    bodyFont: { family: 'Be Vietnam Pro, Inter', size: 11 },
                     padding: 12,
-                    cornerRadius: 8,
+                    cornerRadius: 10,
                     displayColors: false,
                     callbacks: {
                         label: ctx => new Intl.NumberFormat('vi-VN').format(ctx.raw) + 'đ'
@@ -410,11 +410,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // === TOP PRODUCTS BAR CHART ===
+    // === TOP PRODUCTS BAR CHART (Warm gold gradient) ===
     const barCtx = document.getElementById('salesChart').getContext('2d');
-    const barGradient = barCtx.createLinearGradient(0, 0, 0, 280);
-    barGradient.addColorStop(0, '#8b5cf6');
-    barGradient.addColorStop(1, '#c4b5fd');
+    const barGradient = barCtx.createLinearGradient(0, 0, 400, 0);
+    barGradient.addColorStop(0, '#C9A84C');
+    barGradient.addColorStop(1, '#E8C97E');
 
     new Chart(barCtx, {
         type: 'bar',
@@ -436,24 +436,24 @@ document.addEventListener('DOMContentLoaded', function() {
             maintainAspectRatio: false,
             scales: {
                 x: {
-                    grid: { color: '#f1f5f9', drawBorder: false },
+                    grid: { color: '#f4f4f5', drawBorder: false },
                     border: { display: false },
-                    ticks: { font: { size: 11, family: 'Inter' }, color: '#94a3b8', precision: 0 }
+                    ticks: { font: { size: 11, family: 'Be Vietnam Pro, Inter' }, color: '#a1a1aa', precision: 0 }
                 },
                 y: {
                     grid: { display: false },
                     border: { display: false },
-                    ticks: { font: { size: 11, family: 'Inter' }, color: '#64748b' }
+                    ticks: { font: { size: 11, family: 'Be Vietnam Pro, Inter' }, color: '#71717a' }
                 }
             },
             plugins: {
                 legend: { display: false },
                 tooltip: {
-                    backgroundColor: '#1e293b',
-                    titleFont: { family: 'Inter', size: 12 },
-                    bodyFont: { family: 'Inter', size: 11 },
+                    backgroundColor: '#18181b',
+                    titleFont: { family: 'Be Vietnam Pro, Inter', size: 12 },
+                    bodyFont: { family: 'Be Vietnam Pro, Inter', size: 11 },
                     padding: 10,
-                    cornerRadius: 8,
+                    cornerRadius: 10,
                     displayColors: false,
                 }
             }

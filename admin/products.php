@@ -1,36 +1,10 @@
 <?php
 require_once 'includes/header.php';
 
-// Handle Delete
-if (isset($_GET['delete_id'])) {
-    $del_id = (int)$_GET['delete_id'];
-    
-    // Attempt to delete image file first (optional, but good practice)
-    $stmtImg = $conn->prepare("SELECT image_url FROM products WHERE id = :id");
-    $stmtImg->execute(['id' => $del_id]);
-    $prod = $stmtImg->fetch();
-    
-    try {
-        $stmtDel = $conn->prepare("DELETE FROM products WHERE id = :id");
-        if ($stmtDel->execute(['id' => $del_id])) {
-            if ($prod && !empty($prod['image_url'])) {
-                $imgPath = __DIR__ . '/../../' . $prod['image_url'];
-                if (is_file($imgPath)) {
-                    @unlink($imgPath);
-                }
-            }
-            log_admin_action($conn, $_SESSION['user_id'], 'Delete Product', "Xóa sản phẩm ID $del_id");
-            $success = "Đã xóa sản phẩm thành công.";
-        } else {
-            $error = "Không thể xóa sản phẩm.";
-        }
-    } catch (PDOException $e) {
-        if ($e->getCode() == '23000') {
-            $error = "Không thể xóa sản phẩm này vì đã có khách hàng đặt mua (dữ liệu đang tồn tại trong Lịch sử đơn hàng).";
-        } else {
-            $error = "Đã xảy ra lỗi: " . $e->getMessage();
-        }
-    }
+if (isset($_GET['status']) && $_GET['status'] === 'success') {
+    $success = "Xóa sản phẩm thành công!";
+} else if (isset($_GET['status']) && $_GET['status'] === 'error') {
+    $error = "Không thể xóa sản phẩm. Có thể do sản phẩm đang nằm trong đơn hàng.";
 }
 
 // Fetch Products
@@ -100,7 +74,7 @@ $products = $stmt->fetchAll();
                             <td class="p-4 text-brand-accent font-medium"><?= number_format($p['price'], 0, ',', '.') ?>đ</td>
                             <td class="p-4 text-right space-x-2">
                                 <a href="product_form.php?id=<?= $p['id'] ?>" class="text-blue-500 hover:text-blue-700" title="Sửa"><i class="fas fa-edit"></i></a>
-                                <a href="products.php?delete_id=<?= $p['id'] ?>" onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này?');" class="text-red-500 hover:text-red-700" title="Xóa"><i class="fas fa-trash-alt"></i></a>
+                                <a href="delete_product.php?id=<?= $p['id'] ?>" onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này không?');" class="text-red-500 hover:text-red-700" title="Xóa"><i class="fas fa-trash-alt"></i></a>
                             </td>
                         </tr>
                     <?php endforeach; ?>

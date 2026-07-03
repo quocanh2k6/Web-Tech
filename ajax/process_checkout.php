@@ -29,15 +29,26 @@ foreach($cart_items as $item) {
     $total_amount += $item['price'] * $item['quantity'];
 }
 
+$discount_amount = 0;
+$coupon_code = null;
+if (isset($_SESSION['coupon'])) {
+    $discount_amount = $_SESSION['coupon']['discount_amount'];
+    $coupon_code = $_SESSION['coupon']['code'];
+    if ($discount_amount > $total_amount) {
+        $discount_amount = $total_amount;
+    }
+}
+$final_total = $total_amount - $discount_amount;
+
 try {
     // Begin transaction
     $conn->beginTransaction();
 
     // Insert order
-    $stmt = $conn->prepare("INSERT INTO orders (user_id, total_amount, payment_method, status) VALUES (:user_id, :total_amount, :payment_method, 'Thành công')");
+    $stmt = $conn->prepare("INSERT INTO orders (user_id, total_amount, payment_method, status) VALUES (:user_id, :total_amount, :payment_method, 'Pending')");
     $stmt->execute([
         'user_id' => $user_id,
-        'total_amount' => $total_amount,
+        'total_amount' => $final_total,
         'payment_method' => $payment_method
     ]);
     $order_id = $conn->lastInsertId();
@@ -53,11 +64,20 @@ try {
         ]);
     }
 
+    // Update coupon used_count if a coupon was used
+    if ($coupon_code) {
+        $stmtCoupon = $conn->prepare("UPDATE coupons SET used_count = used_count + 1 WHERE code = :code");
+        $stmtCoupon->execute(['code' => $coupon_code]);
+    }
+
     // Commit
     $conn->commit();
 
-    // Clear cart
+    // Clear cart and coupon
     unset($_SESSION['cart']);
+    if (isset($_SESSION['coupon'])) {
+        unset($_SESSION['coupon']);
+    }
 
     echo json_encode(['status' => 'success', 'message' => 'Thanh toán thành công.']);
 } catch(PDOException $e) {

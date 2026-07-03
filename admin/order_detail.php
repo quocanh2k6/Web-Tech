@@ -83,7 +83,11 @@ $items = $stmtItems->fetchAll();
                             <tr>
                                 <td class="py-4">
                                     <div class="flex items-center gap-3">
-                                        <img src="../<?= htmlspecialchars($item['image_url'] ?? 'assets/images/placeholder.jpg') ?>" alt="<?= htmlspecialchars($item['name']) ?>" class="w-12 h-12 object-cover rounded bg-gray-50">
+                                        <?php 
+                                            $imgSrc = $item['image_url'] ?? 'assets/images/placeholder.jpg';
+                                            $finalImgUrl = preg_match('#^https?://#i', $imgSrc) ? $imgSrc : '../' . $imgSrc;
+                                        ?>
+                                        <img src="<?= htmlspecialchars($finalImgUrl) ?>" alt="<?= htmlspecialchars($item['name']) ?>" class="w-12 h-12 object-cover rounded bg-gray-50">
                                         <span class="font-medium text-gray-800 text-sm"><?= htmlspecialchars($item['name']) ?></span>
                                     </div>
                                 </td>
@@ -161,15 +165,16 @@ $items = $stmtItems->fetchAll();
             <form method="POST" action="">
                 <div class="mb-4">
                     <label class="block text-sm font-medium text-gray-700 mb-2">Trạng thái hiện tại</label>
-                    <select name="status" class="w-full p-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary">
-                        <option value="Pending" <?= $order['status'] === 'Pending' ? 'selected' : '' ?>>Chờ xử lý</option>
-                        <option value="Shipping" <?= $order['status'] === 'Shipping' ? 'selected' : '' ?>>Đang giao</option>
-                        <option value="Completed" <?= $order['status'] === 'Completed' ? 'selected' : '' ?>>Hoàn thành</option>
-                        <option value="Cancelled" <?= $order['status'] === 'Cancelled' ? 'selected' : '' ?>>Đã hủy</option>
+                    <select name="status" class="w-full p-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C9A84C]/20 focus:border-[#C9A84C]">
+                        <?php $currentStatus = strtolower($order['status']); ?>
+                        <option value="Pending" <?= ($currentStatus === 'pending' || $currentStatus === 'thành công') ? 'selected' : '' ?>>Chờ xử lý</option>
+                        <option value="Shipping" <?= $currentStatus === 'shipping' ? 'selected' : '' ?>>Đang giao</option>
+                        <option value="Completed" <?= $currentStatus === 'completed' ? 'selected' : '' ?>>Thành công</option>
+                        <option value="Cancelled" <?= $currentStatus === 'cancelled' ? 'selected' : '' ?>>Đã hủy</option>
                     </select>
                 </div>
-                <button type="submit" class="w-full bg-brand-primary text-white py-2.5 rounded-lg font-medium hover:bg-brand-secondary transition-colors">
-                    Lưu cập nhật
+                <button type="submit" class="w-full bg-[#C9A84C] text-white py-2.5 rounded-lg font-semibold hover:bg-[#b5953e] transition-all shadow-md flex justify-center items-center gap-2 mt-4">
+                    <i class="fas fa-save"></i> Lưu cập nhật
                 </button>
             </form>
         </div>

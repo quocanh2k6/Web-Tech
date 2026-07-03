@@ -50,7 +50,10 @@ const heroTl = gsap.timeline({ delay: 0.9 });
 heroTl
   .to('.hero-tag', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' })
   .to('.hero-title .word', {
-    y: '0%', opacity: 1, duration: 1.1, stagger: 0.15, ease: 'power4.out'
+    y: 0, opacity: 1, duration: 1.1, stagger: 0.15, ease: 'power4.out',
+    onComplete: () => {
+      document.querySelectorAll('.hero-title .line').forEach(el => el.style.overflow = 'visible');
+    }
   }, '-=0.4')
   .to('.hero-btn-primary', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.5')
   .to('.hero-btn-secondary', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.6')

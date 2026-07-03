@@ -59,21 +59,23 @@ $orders = $stmt->fetchAll();
                                 <?php 
                                 $statusClass = 'bg-gray-100 text-gray-700';
                                 $statusLabel = htmlspecialchars($order['status']);
-                                if ($order['status'] === 'Pending') {
-                                    $statusClass = 'bg-yellow-100 text-yellow-800';
+                                $normalizedStatus = strtolower($order['status']);
+                                
+                                if ($normalizedStatus === 'pending' || $normalizedStatus === 'thành công') {
+                                    $statusClass = 'bg-orange-100 text-orange-800 font-bold';
                                     $statusLabel = 'Chờ xử lý';
-                                } elseif ($order['status'] === 'Shipping') {
-                                    $statusClass = 'bg-blue-100 text-blue-800';
+                                } elseif ($normalizedStatus === 'shipping') {
+                                    $statusClass = 'bg-blue-100 text-blue-800 font-medium';
                                     $statusLabel = 'Đang giao';
-                                } elseif ($order['status'] === 'Completed') {
-                                    $statusClass = 'bg-green-100 text-green-800';
-                                    $statusLabel = 'Hoàn thành';
-                                } elseif ($order['status'] === 'Cancelled') {
-                                    $statusClass = 'bg-red-100 text-red-800';
+                                } elseif ($normalizedStatus === 'completed') {
+                                    $statusClass = 'bg-green-100 text-green-800 font-medium';
+                                    $statusLabel = 'Thành công';
+                                } elseif ($normalizedStatus === 'cancelled') {
+                                    $statusClass = 'bg-red-100 text-red-800 font-medium';
                                     $statusLabel = 'Đã hủy';
                                 }
                                 ?>
-                                <span class="px-3 py-1 rounded-full text-xs font-medium <?= $statusClass ?>">
+                                <span class="px-3 py-1 rounded-full text-xs <?= $statusClass ?>">
                                     <?= $statusLabel ?>
                                 </span>
                             </td>

@@ -36,7 +36,28 @@ if (!empty($cart_product_ids)) {
     foreach ($stmt->fetchAll() as $product) {
         $cart_products[(int)$product['id']] = $product;
     }
+    
+    // Calculate total amount early for coupon processing
+    foreach ($cart_items as $id => $item) {
+        $price = isset($cart_products[$id]['price']) ? $cart_products[$id]['price'] : $item['price'];
+        $total_amount += $price * $item['quantity'];
+    }
 }
+
+// Process session coupon
+$discount_amount = 0;
+$coupon_code = '';
+if (isset($_SESSION['coupon'])) {
+    $coupon_code = $_SESSION['coupon']['code'];
+    if ($_SESSION['coupon']['discount_type'] === 'percent') {
+        $discount_amount = $total_amount * ($_SESSION['coupon']['discount_value'] / 100);
+    } else {
+        $discount_amount = $_SESSION['coupon']['discount_value'];
+    }
+    if ($discount_amount > $total_amount) $discount_amount = $total_amount;
+    $_SESSION['coupon']['discount_amount'] = $discount_amount;
+}
+$final_total = $total_amount - $discount_amount;
 ?>
 
 <div class="max-w-7xl mx-auto py-12 px-6 min-h-[70vh] mt-8">
@@ -70,7 +91,6 @@ if (!empty($cart_product_ids)) {
                                 $item_name = isset($current_product['name']) ? $current_product['name'] : $item['name'];
                                 $item_image = isset($current_product['image_url']) ? $current_product['image_url'] : $item['image_url'];
                                 $item_total = $item_price * $item['quantity'];
-                                $total_amount += $item_total;
                             ?>
                             <tr class="hover:bg-brand-surface transition-colors">
                                 <td class="py-6 px-6">
@@ -113,14 +133,31 @@ if (!empty($cart_product_ids)) {
                         <span>Tạm tính:</span>
                         <span><?= number_format($total_amount, 0, ',', '.') ?> VNĐ</span>
                     </div>
-                    <div class="flex justify-between mb-6 text-sm font-body font-medium text-brand-sub">
+                    <div class="flex justify-between mb-4 text-sm font-body font-medium text-brand-sub">
                         <span>Phí vận chuyển:</span>
                         <span class="text-brand-gold">Miễn phí</span>
                     </div>
                     
+                    <div id="discount-container" class="flex justify-between mb-6 text-sm font-body font-medium text-[#C9A84C]" <?= $discount_amount > 0 ? '' : 'style="display:none;"' ?>>
+                        <span>Giảm giá (<span id="discount-code-display"><?= htmlspecialchars($coupon_code) ?></span>):</span>
+                        <span id="discount-amount">- <?= number_format($discount_amount, 0, ',', '.') ?> VNĐ</span>
+                    </div>
+
+                    <!-- Promo Code Input -->
+                    <div class="mb-6">
+                        <form id="coupon-form" method="POST" action="cart.php" class="flex items-center gap-2">
+                            <input type="text" id="coupon-input" name="coupon_code" value="<?= htmlspecialchars($coupon_code) ?>" placeholder="Nhập mã giảm giá..." 
+                                   class="w-full bg-slate-800/80 border border-slate-700 rounded-lg py-2.5 px-3 text-sm text-white placeholder-slate-400 focus:outline-none focus:border-[#C9A84C] focus:ring-1 focus:ring-[#C9A84C] transition-all">
+                            <button type="submit" name="apply_coupon" class="px-5 py-2.5 border border-[#C9A84C] text-[#C9A84C] text-sm font-bold rounded-lg hover:bg-[#C9A84C] hover:text-white transition-all shrink-0">
+                                Áp dụng
+                            </button>
+                        </form>
+                        <div id="coupon-message" class="text-xs mt-2 font-medium"></div>
+                    </div>
+                    
                     <div class="flex justify-between mb-8 border-t border-brand-border pt-6">
-                        <span class="font-display font-bold text-lg">Tổng cộng:</span>
-                        <span class="font-display font-black text-2xl text-brand-gold"><?= number_format($total_amount, 0, ',', '.') ?> VNĐ</span>
+                        <span class="font-display font-bold text-lg text-brand-white">Tổng cộng:</span>
+                        <span id="final-total" class="font-display font-black text-2xl text-brand-gold"><?= number_format($final_total, 0, ',', '.') ?> VNĐ</span>
                     </div>
 
                     <a href="checkout.php" class="btn-gold w-full justify-center rounded-md flex">
@@ -136,5 +173,51 @@ if (!empty($cart_product_ids)) {
         </div>
     <?php endif; ?>
 </div>
+
+<script>
+document.getElementById('coupon-form')?.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const code = document.getElementById('coupon-input').value.trim();
+    const messageEl = document.getElementById('coupon-message');
+    
+    if (!code) {
+        messageEl.textContent = 'Vui lòng nhập mã giảm giá.';
+        messageEl.className = 'text-xs mt-2 font-medium text-red-500';
+        return;
+    }
+    
+    messageEl.textContent = 'Đang xử lý...';
+    messageEl.className = 'text-xs mt-2 font-medium text-slate-400';
+    
+    fetch('ajax/apply_coupon.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: 'coupon_code=' + encodeURIComponent(code)
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === 'success') {
+            messageEl.textContent = data.message;
+            messageEl.className = 'text-xs mt-2 font-medium text-green-500';
+            
+            // Update UI
+            document.getElementById('discount-container').style.display = 'flex';
+            document.getElementById('discount-code-display').textContent = code;
+            document.getElementById('discount-amount').textContent = '- ' + new Intl.NumberFormat('vi-VN').format(data.discount_amount) + ' VNĐ';
+            document.getElementById('final-total').textContent = new Intl.NumberFormat('vi-VN').format(data.new_total) + ' VNĐ';
+        } else {
+            messageEl.textContent = data.message;
+            messageEl.className = 'text-xs mt-2 font-medium text-red-500';
+        }
+    })
+    .catch(err => {
+        messageEl.textContent = 'Có lỗi xảy ra, vui lòng thử lại sau.';
+        messageEl.className = 'text-xs mt-2 font-medium text-red-500';
+        console.error(err);
+    });
+});
+</script>
 
 <?php require_once 'includes/footer.php'; ?>

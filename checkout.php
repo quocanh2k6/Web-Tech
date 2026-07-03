@@ -33,6 +33,15 @@ foreach($cart_items as $item) {
     $total_amount += $item['price'] * $item['quantity'];
 }
 
+$discount_amount = 0;
+if (isset($_SESSION['coupon'])) {
+    $discount_amount = $_SESSION['coupon']['discount_amount'];
+    if ($discount_amount > $total_amount) {
+        $discount_amount = $total_amount;
+    }
+}
+$final_total = $total_amount - $discount_amount;
+
 require_once 'includes/header.php';
 ?>
 
@@ -66,7 +75,7 @@ require_once 'includes/header.php';
             
             <div class="flex justify-between items-center border-t border-brand-border pt-6 mb-6">
                 <span class="text-brand-sub font-body font-medium">Tổng Đơn Hàng:</span>
-                <span class="font-display font-black text-2xl text-brand-gold"><?= number_format($total_amount, 0, ',', '.') ?> VNĐ</span>
+                <span class="font-display font-black text-2xl text-brand-gold"><?= number_format($final_total, 0, ',', '.') ?> VNĐ</span>
             </div>
 
             <button type="button" id="btn-confirm-method" class="btn-gold w-full justify-center rounded-md">
@@ -82,7 +91,7 @@ require_once 'includes/header.php';
         
         <div class="bg-brand-surface p-8 inline-block rounded-xl mb-8 border border-brand-border shadow-inner">
             <i class="fas fa-mobile-alt text-6xl text-brand-sub mb-4"></i>
-            <p class="mt-2 font-black text-2xl text-brand-gold"><?= number_format($total_amount, 0, ',', '.') ?> VNĐ</p>
+            <p class="mt-2 font-black text-2xl text-brand-gold"><?= number_format($final_total, 0, ',', '.') ?> VNĐ</p>
         </div>
         <div id="payment-action-area">
             <button type="button" id="btn-confirm-payment" class="btn-gold w-full justify-center rounded-md shadow-md gap-3">

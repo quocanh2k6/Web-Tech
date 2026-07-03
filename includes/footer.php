@@ -61,7 +61,7 @@
 </footer>
 
 <!-- Chatbot Bubble -->
-<div id="chatbot-container" class="fixed bottom-6 right-6 z-50">
+<div id="chatbot-container" class="fixed bottom-6 right-6 z-[9999] flex flex-col items-end">
     <!-- Chat Window -->
     <div id="chat-window" class="hidden w-80 sm:w-96 bg-brand-surface border border-brand-border rounded-2xl shadow-2xl overflow-hidden flex flex-col transition-all duration-300 transform scale-95 opacity-0 origin-bottom-right mb-4">
         <!-- Header -->
@@ -100,8 +100,8 @@
     </div>
 
     <!-- Bubble Button -->
-    <button id="chatbot-trigger" class="w-14 h-14 bg-brand-gold rounded-full text-[#000] flex items-center justify-center shadow-[0_0_20px_rgba(212,175,55,0.3)] hover:scale-110 transition-transform duration-300 ml-auto block focus:outline-none">
-        <i class="fas fa-comment-dots text-xl"></i>
+    <button id="chatbot-trigger" class="w-16 h-16 bg-brand-gold rounded-full text-[#000] flex items-center justify-center shadow-[0_0_20px_rgba(212,175,55,0.3)] hover:scale-110 transition-transform duration-300 ml-auto cursor-pointer focus:outline-none relative">
+        <i class="fas fa-comment-dots text-2xl"></i>
     </button>
 </div>
 

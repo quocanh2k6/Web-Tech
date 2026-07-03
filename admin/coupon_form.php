@@ -106,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <div class="flex justify-between items-center mb-6">
     <div class="flex items-center gap-4">
-        <a href="coupons.php" class="text-gray-500 hover:text-brand-primary">
+        <a href="coupons.php" class="text-gray-500 hover:text-[#C9A84C]">
             <i class="fas fa-arrow-left"></i>
         </a>
         <h1 class="text-2xl font-bold text-gray-800"><?= $isEdit ? 'Sửa Mã giảm giá' : 'Thêm Mã giảm giá mới' ?></h1>
@@ -133,12 +133,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="md:col-span-2">
                 <label class="block text-sm font-medium text-gray-700 mb-2">Mã code <span class="text-red-500">*</span></label>
                 <input type="text" name="code" value="<?= htmlspecialchars($coupon['code']) ?>" required placeholder="VD: SUMMER2024"
-                       class="w-full p-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary uppercase">
+                       class="w-full p-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C9A84C]/20 focus:border-[#C9A84C] uppercase">
             </div>
             
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Loại giảm giá</label>
-                <select name="discount_type" class="w-full p-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary">
+                <select name="discount_type" class="w-full p-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C9A84C]/20 focus:border-[#C9A84C]">
                     <option value="percent" <?= $coupon['discount_type'] === 'percent' ? 'selected' : '' ?>>Theo phần trăm (%)</option>
                     <option value="fixed" <?= $coupon['discount_type'] === 'fixed' ? 'selected' : '' ?>>Số tiền cố định (VNĐ)</option>
                 </select>
@@ -147,40 +147,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Mức giảm <span class="text-red-500">*</span></label>
                 <input type="number" name="discount_value" value="<?= htmlspecialchars($coupon['discount_value']) ?>" required min="1" step="0.01"
-                       class="w-full p-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary">
+                       class="w-full p-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C9A84C]/20 focus:border-[#C9A84C]">
             </div>
 
             <div class="md:col-span-2">
                 <label class="block text-sm font-medium text-gray-700 mb-2">Giới hạn số lần sử dụng (Để trống = Không giới hạn)</label>
                 <input type="number" name="usage_limit" value="<?= htmlspecialchars($coupon['usage_limit']) ?>" min="1"
-                       class="w-full p-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary">
+                       class="w-full p-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C9A84C]/20 focus:border-[#C9A84C]">
             </div>
 
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Thời gian bắt đầu</label>
                 <input type="datetime-local" name="start_date" value="<?= htmlspecialchars($coupon['start_date']) ?>"
-                       class="w-full p-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary">
+                       class="w-full p-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C9A84C]/20 focus:border-[#C9A84C]">
             </div>
 
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Thời gian kết thúc</label>
                 <input type="datetime-local" name="end_date" value="<?= htmlspecialchars($coupon['end_date']) ?>"
-                       class="w-full p-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary">
+                       class="w-full p-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C9A84C]/20 focus:border-[#C9A84C]">
             </div>
             
             <div class="md:col-span-2 flex items-center gap-2 pt-2">
                 <input type="checkbox" id="is_active" name="is_active" value="1" <?= $coupon['is_active'] ? 'checked' : '' ?>
-                       class="w-4 h-4 text-brand-primary bg-gray-100 border-gray-300 rounded focus:ring-brand-primary">
+                       class="w-4 h-4 text-[#C9A84C] bg-gray-100 border-gray-300 rounded focus:ring-[#C9A84C]">
                 <label for="is_active" class="text-sm font-medium text-gray-700">Kích hoạt mã giảm giá này</label>
             </div>
         </div>
         
         <div class="pt-4 border-t border-gray-100 mt-6 flex justify-end gap-3">
-            <a href="coupons.php" class="px-5 py-2.5 text-gray-700 bg-gray-100 hover:bg-gray-200 font-medium rounded-lg transition-colors">
+            <a href="coupons.php" class="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-600 font-medium rounded-lg transition-colors text-sm">
                 Hủy
             </a>
-            <button type="submit" class="px-5 py-2.5 bg-brand-primary hover:bg-brand-secondary text-white font-medium rounded-lg transition-colors">
-                <?= $isEdit ? 'Lưu thay đổi' : 'Thêm mã giảm giá' ?>
+            <button type="submit" class="px-5 py-2.5 bg-[#C9A84C] hover:bg-[#b5953e] text-white font-semibold rounded-lg transition-all shadow-md hover:shadow-lg flex items-center gap-2 text-sm">
+                <i class="fas fa-save text-xs"></i>
+                <?= $isEdit ? 'Lưu thay đổi' : 'Lưu mã giảm giá' ?>
             </button>
         </div>
     </form>

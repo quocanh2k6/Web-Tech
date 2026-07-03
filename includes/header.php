@@ -149,18 +149,22 @@ if (isset($_SESSION['cart']) && is_array($_SESSION['cart'])) {
 </aside>
 
 <!-- SEARCH OVERLAY -->
-<div id="search-overlay" class="fixed inset-0 bg-black/95 backdrop-blur-sm z-50 hidden flex items-center justify-center">
-  <div class="w-full max-w-2xl px-6">
-    <div class="border-b border-brand-border pb-4 flex items-center gap-4">
-      <i class="fas fa-search text-brand-gold"></i>
-      <input type="text" id="search-input" placeholder="Tìm sản phẩm..." 
-        class="flex-1 bg-transparent text-brand-white text-xl outline-none font-body placeholder-brand-sub">
-      <button id="close-search" class="text-brand-sub hover:text-brand-white">
-        <i class="fas fa-times"></i>
+<div id="search-overlay" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex flex-col items-center justify-start pt-32 transition-opacity duration-300 opacity-0">
+  <div class="w-full max-w-2xl px-6 relative">
+    <!-- Search Input Area -->
+    <div class="bg-brand-surface border border-brand-border rounded-xl flex items-center gap-4 px-6 py-4 shadow-lg relative z-10">
+      <i class="fas fa-search text-brand-gold text-xl"></i>
+      <input type="text" id="search-input" placeholder="Nhập từ khóa tìm kiếm..." 
+        class="flex-1 bg-transparent text-brand-white text-lg outline-none font-body placeholder-brand-sub" autocomplete="off">
+      <button id="close-search" class="text-brand-sub hover:text-brand-gold transition-colors">
+        <i class="fas fa-times text-xl"></i>
       </button>
     </div>
-    <!-- search results -->
-    <div id="search-results" class="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4 max-h-[60vh] overflow-y-auto pr-2"></div>
+    
+    <!-- Search Dropdown Results -->
+    <div id="search-results" class="absolute top-full left-6 right-6 mt-2 bg-brand-surface border border-brand-border rounded-xl shadow-2xl z-0 max-h-[400px] overflow-y-auto transform translate-y-[-10px] opacity-0 pointer-events-none transition-all duration-300">
+      <!-- Results injected here -->
+    </div>
   </div>
 </div>
 
@@ -173,16 +177,46 @@ const searchResults = document.getElementById('search-results');
 let searchTimeout;
 
 if(searchBtn && searchOverlay) {
-  searchBtn.addEventListener('click', () => { searchOverlay.classList.remove('hidden'); searchInput?.focus(); });
-  closeSearch?.addEventListener('click', () => searchOverlay.classList.add('hidden'));
-  searchOverlay.addEventListener('click', e => { if(e.target === searchOverlay) searchOverlay.classList.add('hidden'); });
+  const showSearch = () => {
+    searchOverlay.classList.remove('hidden');
+    // slight delay for transition
+    setTimeout(() => {
+      searchOverlay.classList.remove('opacity-0');
+      searchOverlay.classList.add('opacity-100');
+      searchInput?.focus();
+    }, 10);
+  };
+  
+  const hideSearch = () => {
+    searchOverlay.classList.remove('opacity-100');
+    searchOverlay.classList.add('opacity-0');
+    setTimeout(() => {
+      searchOverlay.classList.add('hidden');
+      searchInput.value = '';
+      hideDropdown();
+    }, 300);
+  };
+
+  const showDropdown = () => {
+    searchResults.classList.remove('translate-y-[-10px]', 'opacity-0', 'pointer-events-none');
+    searchResults.classList.add('translate-y-0', 'opacity-100', 'pointer-events-auto');
+  };
+
+  const hideDropdown = () => {
+    searchResults.classList.remove('translate-y-0', 'opacity-100', 'pointer-events-auto');
+    searchResults.classList.add('translate-y-[-10px]', 'opacity-0', 'pointer-events-none');
+  };
+
+  searchBtn.addEventListener('click', showSearch);
+  closeSearch?.addEventListener('click', hideSearch);
+  searchOverlay.addEventListener('click', e => { if(e.target === searchOverlay) hideSearch(); });
 
   searchInput?.addEventListener('input', (e) => {
       clearTimeout(searchTimeout);
       const query = e.target.value.trim();
       
       if(query.length < 2) {
-          searchResults.innerHTML = '';
+          hideDropdown();
           return;
       }
       
@@ -191,17 +225,23 @@ if(searchBtn && searchOverlay) {
               .then(r => r.json())
               .then(data => {
                   if(data.length === 0) {
-                      searchResults.innerHTML = '<p class="col-span-full text-brand-sub text-center py-4">Không tìm thấy sản phẩm</p>';
+                      searchResults.innerHTML = '<div class="p-6 text-center text-brand-sub">Không tìm thấy kết quả phù hợp.</div>';
+                      showDropdown();
                       return;
                   }
                   
                   searchResults.innerHTML = data.map(product => `
-                      <a href="product_detail.php?id=${product.id}" class="group block bg-brand-surface rounded-lg p-2 hover:bg-brand-border transition-colors">
-                          <img src="${product.image_url}" class="w-full aspect-square object-cover rounded mb-2" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?w=500&q=80';">
-                          <h4 class="text-brand-white text-sm font-medium truncate group-hover:text-brand-gold transition-colors">${product.name}</h4>
-                          <p class="text-brand-gold font-display text-sm font-bold mt-1">${new Intl.NumberFormat('vi-VN').format(product.price)}đ</p>
+                      <a href="${product.link}" class="flex items-center gap-4 p-4 hover:bg-brand-border border-b border-brand-border last:border-0 transition-colors">
+                          <img src="${product.image_url}" alt="${product.name}" class="w-14 h-14 object-cover rounded-md bg-brand-card">
+                          <div class="flex-1">
+                              <h4 class="text-brand-white text-sm font-medium hover:text-brand-gold transition-colors">${product.name}</h4>
+                          </div>
+                          <div class="text-brand-gold font-bold text-sm">
+                              ${product.price}
+                          </div>
                       </a>
                   `).join('');
+                  showDropdown();
               });
       }, 300);
   });

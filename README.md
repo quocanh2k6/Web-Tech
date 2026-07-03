@@ -10,10 +10,10 @@
 - **Giao diện Dark Mode Premium:** Thiết kế tối giản, sang trọng theo phong cách luxury-tech với tông màu đen – vàng gold, cùng typography Be Vietnam Pro & Inter.
 - **Responsive Design:** Tương thích hoàn toàn trên Desktop, Tablet và Mobile, kèm sidebar menu cho thiết bị nhỏ.
 - **Trải nghiệm mua sắm:** Xem danh sách sản phẩm, chi tiết sản phẩm, lọc theo danh mục (5 danh mục), thêm vào giỏ hàng, áp mã giảm giá và đặt hàng.
-- **Tìm kiếm Realtime:** Tính năng search overlay với AJAX tìm kiếm sản phẩm theo thời gian thực.
+- **Tìm kiếm Realtime (Live Search):** Tích hợp công cụ tìm kiếm tức thì bằng AJAX với thiết kế Dropdown mượt mà, hỗ trợ Debouncing giúp tối ưu hiệu suất server.
 - **Hiệu ứng hiện đại:** Loading screen, AOS scroll animations, Swiper slider sản phẩm, parallax banner, marquee chạy chữ.
 - **Quản lý Tài khoản:** Đăng ký, Đăng nhập, Quên mật khẩu, xem lịch sử đơn hàng, cập nhật hồ sơ và ảnh đại diện.
-- **AI Chatbot Tích hợp:** Trợ lý ảo thông minh tư vấn khách hàng trực tiếp, được tích hợp qua **Google Gemini API**.
+- **AI Chatbot Tích hợp:** Trợ lý ảo thông minh tư vấn khách hàng trực tiếp qua **Google Gemini API**, được tối ưu Hitbox để dễ dàng tương tác.
 - **Đăng ký nhận bản tin (Newsletter):** Cho phép khách hàng đăng ký nhận email ưu đãi, hỗ trợ hủy đăng ký.
 
 ### 2. Dành cho Quản trị viên (Admin Panel)

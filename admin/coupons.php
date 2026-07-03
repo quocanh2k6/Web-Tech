@@ -28,8 +28,8 @@ try {
 
 <div class="flex justify-between items-center mb-6">
     <h1 class="text-2xl font-bold text-gray-800">Quản lý Mã giảm giá</h1>
-    <a href="coupon_form.php" class="bg-brand-primary text-white px-4 py-2 rounded-lg font-medium hover:bg-brand-secondary transition-colors shadow-sm flex items-center gap-2">
-        <i class="fas fa-plus"></i> Thêm mã
+    <a href="coupon_form.php" class="bg-[#C9A84C] hover:bg-[#b5953e] text-white px-5 py-2.5 rounded-lg font-semibold transition-all shadow-md hover:shadow-lg flex items-center gap-2 text-sm">
+        <i class="fas fa-plus text-xs"></i> Thêm mã
     </a>
 </div>
 
@@ -67,7 +67,7 @@ try {
                         <tr class="hover:bg-gray-50/50 transition-colors">
                             <td class="py-4 px-6 text-sm text-gray-500"><?= $coupon['id'] ?></td>
                             <td class="py-4 px-6 font-bold text-gray-900"><?= htmlspecialchars($coupon['code']) ?></td>
-                            <td class="py-4 px-6 text-sm font-medium text-brand-primary">
+                            <td class="py-4 px-6 text-sm font-medium text-[#C9A84C]">
                                 <?= $coupon['discount_type'] === 'percent' ? $coupon['discount_value'] . '%' : number_format($coupon['discount_value'], 0, ',', '.') . 'đ' ?>
                             </td>
                             <td class="py-4 px-6 text-sm text-gray-600">
