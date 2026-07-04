@@ -11,7 +11,7 @@ try {
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     $conn->exec("SET time_zone = '+07:00'");
-    require_once __DIR__ . '/includes/helpers.php';
+    require_once __DIR__ . '/../includes/helpers.php';
     ensure_user_profile_schema($conn);
 } catch(PDOException $e) {
     die("Lỗi kết nối DB. Vui lòng thử lại sau.");

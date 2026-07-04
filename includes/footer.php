@@ -174,7 +174,7 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             // Determine absolute path to chatbot_api.php based on current location
             const currentPath = window.location.pathname;
-            const apiPath = currentPath.includes('/admin/') ? '../chatbot_api.php' : 'chatbot_api.php';
+            const apiPath = currentPath.includes('/admin/') ? '../ajax/chatbot_api.php' : 'ajax/chatbot_api.php';
             
             const response = await fetch(apiPath, {
                 method: 'POST',
@@ -226,7 +226,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
 <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-<script src="script.js"></script>
+<script src="js/script.js"></script>
 
 </body>
 </html>

@@ -78,19 +78,24 @@ Technova-main/
 │   ├── process_checkout.php
 │   ├── process_contact.php
 │   ├── search_products.php
-│   └── subscribe_newsletter.php
+│   ├── subscribe_newsletter.php
+│   └── chatbot_api.php       # API Chatbot (Gemini)
 ├── assets/                   # Tài nguyên tĩnh
-│   └── avatars/              # Ảnh đại diện người dùng
+│   ├── avatars/              # Ảnh đại diện người dùng
+│   └── images/               # Hình ảnh chung (QR code, etc.)
 ├── config/                   # Cấu hình
+│   ├── db_connect.php        # Kết nối CSDL
+│   ├── database.sql          # Schema CSDL
 │   └── newsletter_mail.php   # Cấu hình email SMTP
+├── css/
+│   └── styles.css            # CSS tùy chỉnh
 ├── includes/                 # Components dùng chung
 │   ├── header.php            # Header + Navigation
 │   ├── footer.php            # Footer
 │   ├── helpers.php           # Hàm tiện ích
 │   └── newsletter_mailer.php # Xử lý gửi email
 ├── js/
-│   ├── main.js               # Script chính (Swiper, AOS, animations)
-│   └── security.js           # Script bảo vệ mã nguồn
+│   └── script.js             # Script chính của website
 ├── index.php                 # Trang chủ
 ├── shop.php                  # Trang cửa hàng
 ├── product_detail.php        # Chi tiết sản phẩm
@@ -103,13 +108,8 @@ Technova-main/
 ├── about.php                 # Giới thiệu
 ├── careers.php               # Tuyển dụng
 ├── support.php               # Liên hệ / Hỗ trợ
-├── chatbot_api.php           # API Chatbot (Gemini)
-├── db_connect.php            # Kết nối CSDL
-├── database.sql              # File khởi tạo Database
-├── styles.css                # CSS tùy chỉnh
-├── script.js                 # Script bổ sung
 ├── .htaccess                 # Cấu hình bảo mật Apache
-├── composer.json              # Quản lý thư viện PHP
+├── composer.json             # Quản lý thư viện PHP
 └── README.md                 # Tài liệu dự án
 ```
 
@@ -141,7 +141,7 @@ Lệnh này sẽ cài đặt **PHPMailer** — thư viện gửi email cho tính
 1. Mở **phpMyAdmin**.
 2. Import file `database.sql` đi kèm trong thư mục gốc.
 3. Hệ thống sẽ tự động tạo các bảng: `roles`, `users`, `categories`, `products`, `orders`, `order_items`, `contacts`, `newsletter_subscribers`, `admin_logs`, `coupons`, `settings` cùng dữ liệu mẫu (15 sản phẩm công nghệ).
-4. **Lưu ý:** Trước khi import, hãy tạo database tên `technova_db` trong phpMyAdmin (hoặc chỉnh sửa file `db_connect.php` theo tên database bạn muốn).
+4. **Lưu ý:** Trước khi import, hãy tạo database tên `technova_db` trong phpMyAdmin (hoặc chỉnh sửa file `config/db_connect.php` theo tên database bạn muốn).
 
 **Tài khoản quản trị mặc định:**
 | Trường    | Giá trị |
@@ -151,7 +151,7 @@ Lệnh này sẽ cài đặt **PHPMailer** — thư viện gửi email cho tính
 
 **Bước 4: Cấu hình kết nối Database**
 
-Mở file `db_connect.php` và thay đổi các thông số cho phù hợp với môi trường của bạn:
+Mở file `config/db_connect.php` và thay đổi các thông số cho phù hợp với môi trường của bạn:
 ```php
 $host     = 'localhost';
 $db_name  = 'technova_db';
@@ -163,7 +163,7 @@ $password = '';
 **Bước 5: Cấu hình API Key (AI Chatbot)**
 
 Để Chatbot hoạt động, bạn cần cung cấp một khóa API của Google Gemini:
-1. Mở file `chatbot_api.php`.
+1. Mở file `ajax/chatbot_api.php`.
 2. Tìm biến `$api_key = "YOUR_GEMINI_API_KEY_HERE";`.
 3. Thay thế bằng API Key thật của bạn (nhận miễn phí tại [Google AI Studio](https://aistudio.google.com/)).
 

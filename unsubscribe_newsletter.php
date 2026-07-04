@@ -1,6 +1,6 @@
 <?php
 require_once 'includes/newsletter_mailer.php';
-require_once 'db_connect.php';
+require_once 'config/db_connect.php';
 
 $email = isset($_GET['email']) ? trim((string) $_GET['email']) : '';
 $token = isset($_GET['token']) ? trim((string) $_GET['token']) : '';

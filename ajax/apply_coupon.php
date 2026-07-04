@@ -2,7 +2,7 @@
 session_start();
 header('Content-Type: application/json');
 
-require_once '../db_connect.php';
+require_once '../config/db_connect.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     echo json_encode(['status' => 'error', 'message' => 'Yêu cầu không hợp lệ.']);

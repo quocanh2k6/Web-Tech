@@ -2,7 +2,7 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-require_once __DIR__ . '/../db_connect.php';
+require_once __DIR__ . '/../config/db_connect.php';
 
 $cart_count = 0;
 if (isset($_SESSION['cart']) && is_array($_SESSION['cart'])) {
@@ -65,7 +65,7 @@ if (isset($_SESSION['cart']) && is_array($_SESSION['cart'])) {
     <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body class="bg-brand-black text-brand-white font-body">
 

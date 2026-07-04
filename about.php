@@ -1,5 +1,5 @@
 <?php
-require_once 'db_connect.php';
+require_once 'config/db_connect.php';
 require_once 'includes/helpers.php';
 require_once 'includes/header.php';
 ?>

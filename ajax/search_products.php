@@ -1,5 +1,5 @@
 <?php
-require_once '../db_connect.php';
+require_once '../config/db_connect.php';
 require_once '../includes/helpers.php';
 
 header('Content-Type: application/json; charset=utf-8');

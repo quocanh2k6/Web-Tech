@@ -6,7 +6,7 @@ if (!isset($_SESSION['user_id']) || !in_array($_SESSION['role_id'], [1, 2])) {
     exit();
 }
 
-require_once __DIR__ . '/../../db_connect.php';
+require_once __DIR__ . '/../../config/db_connect.php';
 
 $query = $_GET['q'] ?? '';
 $search_term = "%$query%";

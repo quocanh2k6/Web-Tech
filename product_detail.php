@@ -1,5 +1,5 @@
 <?php
-require_once 'db_connect.php';
+require_once 'config/db_connect.php';
 require_once 'includes/helpers.php';
 
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {

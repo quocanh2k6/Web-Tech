@@ -1,5 +1,5 @@
 <?php
-require_once 'db_connect.php';
+require_once 'config/db_connect.php';
 require_once 'includes/helpers.php';
 
 if (session_status() === PHP_SESSION_NONE) {
@@ -157,7 +157,7 @@ $final_total = $total_amount - $discount_amount;
                     
                     <div class="flex justify-between mb-8 border-t border-brand-border pt-6">
                         <span class="font-display font-bold text-lg text-brand-white">Tổng cộng:</span>
-                        <span id="final-total" class="font-display font-black text-2xl text-brand-gold"><?= number_format($final_total, 0, ',', '.') ?> VNĐ</span>
+                        <span id="final-total" class="font-display font-black text-lg text-brand-gold"><?= number_format($final_total, 0, ',', '.') ?> VNĐ</span>
                     </div>
 
                     <a href="checkout.php" class="btn-gold w-full justify-center rounded-md flex">

@@ -1,5 +1,5 @@
 <?php
-require_once 'db_connect.php';
+require_once 'config/db_connect.php';
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -89,9 +89,9 @@ require_once 'includes/header.php';
         <h2 class="font-display text-2xl font-bold mb-2 text-brand-white">Đang Xử Lý Thanh Toán</h2>
         <p class="text-brand-sub mb-8 font-body text-sm">Vui lòng hoàn tất giao dịch trong ứng dụng thanh toán của bạn.</p>
         
-        <div class="bg-brand-surface p-8 inline-block rounded-xl mb-8 border border-brand-border shadow-inner">
-            <i class="fas fa-mobile-alt text-6xl text-brand-sub mb-4"></i>
-            <p class="mt-2 font-black text-2xl text-brand-gold"><?= number_format($final_total, 0, ',', '.') ?> VNĐ</p>
+        <div class="bg-brand-surface p-6 inline-block rounded-xl mb-8 border border-brand-border shadow-inner">
+            <img src="assets/images/QR.png" alt="QR Thanh Toán" style="max-width: 240px; border-radius: 8px; margin: 0 auto; display: block;">
+            <p class="mt-4 font-black text-2xl text-brand-gold"><?= number_format($final_total, 0, ',', '.') ?> VNĐ</p>
         </div>
         <div id="payment-action-area">
             <button type="button" id="btn-confirm-payment" class="btn-gold w-full justify-center rounded-md shadow-md gap-3">
