@@ -76,6 +76,20 @@ INSERT INTO products (category_id, name, description, price, image_url) VALUES
 (5, 'Chuột Logitech MX Master 3S', 'Chuột không dây công thái học tốt nhất cho công việc, cảm biến 8000 DPI, cuộn MagSpeed siêu tốc và êm ái.', 2690000, 'assets/products/mxmaster.jpg'),
 (5, 'Bàn phím cơ Keychron Q1 Pro', 'Bàn phím cơ không dây layout 75%, vỏ nhôm nguyên khối, mạch gasket mount cho cảm giác gõ tuyệt vời.', 4990000, 'assets/products/keychron.jpg');
 
+-- Bảng mã giảm giá (Mới)
+CREATE TABLE IF NOT EXISTS coupons (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    code VARCHAR(50) NOT NULL UNIQUE,
+    discount_type ENUM('percent', 'fixed') DEFAULT 'percent',
+    discount_value DECIMAL(15, 2) NOT NULL,
+    usage_limit INT DEFAULT NULL,
+    used_count INT DEFAULT 0,
+    start_date DATETIME NULL,
+    end_date DATETIME NULL,
+    is_active TINYINT(1) DEFAULT 1,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 -- Bảng đơn hàng
 CREATE TABLE IF NOT EXISTS orders (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -126,19 +140,7 @@ CREATE TABLE IF NOT EXISTS admin_logs (
     FOREIGN KEY (admin_id) REFERENCES users(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Bảng mã giảm giá (Mới)
-CREATE TABLE IF NOT EXISTS coupons (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    code VARCHAR(50) NOT NULL UNIQUE,
-    discount_type ENUM('percent', 'fixed') DEFAULT 'percent',
-    discount_value DECIMAL(15, 2) NOT NULL,
-    usage_limit INT DEFAULT NULL,
-    used_count INT DEFAULT 0,
-    start_date DATETIME NULL,
-    end_date DATETIME NULL,
-    is_active TINYINT(1) DEFAULT 1,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 
 -- Bảng cài đặt website (Mới)
 CREATE TABLE IF NOT EXISTS settings (
